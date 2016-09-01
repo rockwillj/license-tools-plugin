@@ -59,6 +59,10 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
         return libraryName ?: getNameFromArtifactId() ?: filename
     }
 
+    public String getEscapedName() {
+        return name ? (name.contains(":") ? "\"${name}\"" : name) : null
+    }
+
     // called from HTML templates
     public String getCopyrightStatement() {
         if (notice) {
