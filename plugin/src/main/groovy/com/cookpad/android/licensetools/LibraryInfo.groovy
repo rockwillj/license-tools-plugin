@@ -60,7 +60,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
     }
 
     public String getEscapedName() {
-        return name ? (name.contains(":") ? "\"${name}\"" : name) : null
+        return name ? (name.contains(": ") ? "\"${name}\"" : name) : null
     }
 
     // called from HTML templates
