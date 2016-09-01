@@ -2,7 +2,6 @@ package com.cookpad.android.licensetools
 
 import groovy.json.JsonBuilder
 import groovy.util.slurpersupport.GPathResult
-import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -66,7 +65,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
                     project.logger.warn("- artifact: ${libraryInfo.artifactId}\n  license: ${libraryInfo.license}")
                 }
             }
-            throw new GradleException("checkLicenses: missing libraries in ${ext.licensesYaml}")
+            project.logger.error("checkLicenses: missing libraries in ${ext.licensesYaml}")
         }
 
         checkLicenses.configure {
