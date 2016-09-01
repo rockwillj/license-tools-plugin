@@ -1,5 +1,6 @@
 package com.cookpad.android.licensetools
 
+import groovy.json.JsonBuilder
 import groovy.util.slurpersupport.GPathResult
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
@@ -9,7 +10,6 @@ import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.xml.sax.helpers.DefaultHandler
 import org.yaml.snakeyaml.Yaml
-import groovy.json.JsonBuilder
 
 class LicenseToolsPlugin implements Plugin<Project> {
 
@@ -37,6 +37,8 @@ class LicenseToolsPlugin implements Plugin<Project> {
             LicenseToolsExtension ext = project.extensions.findByType(LicenseToolsExtension)
 
             if (notDocumented.size() > 0) {
+                generateLicenseYaml(project)
+
                 project.logger.warn("# Libraries not listed in ${ext.licensesYaml}:")
                 notDocumented.each { libraryInfo ->
                     def message = new StringBuffer()
@@ -48,6 +50,8 @@ class LicenseToolsPlugin implements Plugin<Project> {
                         message.append("  url: ${libraryInfo.url ?: "#URL#"}\n")
                     }
                     project.logger.warn(message.toString().trim())
+
+                    appendLicenseYaml(project, message.toString().trim())
                 }
             }
             if (notInDependencies.size() > 0) {
@@ -149,6 +153,30 @@ class LicenseToolsPlugin implements Plugin<Project> {
 
     Map<String, ?> loadYaml(File yamlFile) {
         return yaml.load(yamlFile.text) as Map<String, ?> ?: [:]
+    }
+
+    void generateLicenseYaml(Project project) {
+        def ext = project.extensions.getByType(LicenseToolsExtension)
+
+        if (!project.file(ext.licensesYaml).exists()) {
+            return
+        }
+
+        def assetsDir = project.file("src/main/assets")
+        if (!assetsDir.exists()) {
+            assetsDir.mkdirs()
+        }
+
+        project.logger.info("render ${assetsDir}/${ext.outputYaml}")
+        project.file("${assetsDir}/${ext.outputYaml}").write("")
+        project.file("${assetsDir}/${ext.outputYaml}") << project.file(ext.licensesYaml).text
+    }
+
+    void appendLicenseYaml(Project project, String content) {
+        def ext = project.extensions.getByType(LicenseToolsExtension)
+        def assetsDir = project.file("src/main/assets")
+
+        project.file("${assetsDir}/${ext.outputYaml}").append("\n${content}")
     }
 
     void generateLicensePage(Project project) {
