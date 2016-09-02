@@ -36,8 +36,6 @@ class LicenseToolsPlugin implements Plugin<Project> {
             LicenseToolsExtension ext = project.extensions.findByType(LicenseToolsExtension)
 
             if (notDocumented.size() > 0) {
-                generateLicenseYaml(project)
-
                 project.logger.warn("# Libraries not listed in ${ext.licensesYaml}:")
                 notDocumented.each { libraryInfo ->
                     def message = new StringBuffer()
@@ -173,9 +171,8 @@ class LicenseToolsPlugin implements Plugin<Project> {
 
     void appendLicenseYaml(Project project, String content) {
         def ext = project.extensions.getByType(LicenseToolsExtension)
-        def assetsDir = project.file("src/main/assets")
 
-        project.file("${assetsDir}/${ext.outputYaml}").append("\n${content}")
+        project.file(ext.licensesYaml).append("\n${content}")
     }
 
     void generateLicensePage(Project project) {
