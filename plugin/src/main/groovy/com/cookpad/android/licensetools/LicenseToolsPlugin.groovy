@@ -40,11 +40,11 @@ class LicenseToolsPlugin implements Plugin<Project> {
                 notDocumented.each { libraryInfo ->
                     def message = new StringBuffer()
                     message.append("- artifact: ${libraryInfo.artifactId.withWildcardVersion()}\n")
-                    message.append("  name: ${libraryInfo.escapedName ?: "#NAME#"}\n")
-                    message.append("  copyrightHolder: ${libraryInfo.copyrightHolder ?: "#COPYRIGHT_HOLDER#"}\n")
-                    message.append("  license: ${libraryInfo.license ?: "#LICENSE#"}\n")
+                    message.append("  name: ${libraryInfo.escapedName ?: "(NAME)"}\n")
+                    message.append("  copyrightHolder: ${libraryInfo.copyrightHolder ?: "(COPYRIGHT_HOLDER)"}\n")
+                    message.append("  license: ${libraryInfo.license ?: "(LICENSE)"}\n")
                     if (libraryInfo.url) {
-                        message.append("  url: ${libraryInfo.url ?: "#URL#"}\n")
+                        message.append("  url: ${libraryInfo.url ?: "(URL)"}\n")
                     }
                     project.logger.warn(message.toString().trim())
 
@@ -199,10 +199,12 @@ class LicenseToolsPlugin implements Plugin<Project> {
                 content.append(Templates.buildLicenseHtml(libraryInfo));
             } catch (NotEnoughInformationException e) {
                 noLicenseLibraries.add(e.libraryInfo)
+            } catch (FileNotFoundException e) {
+                project.logger.error(e.message)
             }
         }
 
-        assertEmptyLibraries(noLicenseLibraries)
+        assertEmptyLibraries(project, noLicenseLibraries)
 
         def assetsDir = project.file("src/main/assets")
         if (!assetsDir.exists()) {
@@ -210,7 +212,11 @@ class LicenseToolsPlugin implements Plugin<Project> {
         }
 
         project.logger.info("render ${assetsDir}/${ext.outputHtml}")
-        project.file("${assetsDir}/${ext.outputHtml}").write(Templates.wrapWithLayout(content))
+        try {
+            project.file("${assetsDir}/${ext.outputHtml}").write(Templates.wrapWithLayout(content))
+        } catch (FileNotFoundException e) {
+            project.logger.error(e.message)
+        }
     }
 
     void generateLicenseJson(Project project) {
@@ -242,7 +248,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
             }
         }
 
-        assertEmptyLibraries(noLicenseLibraries)
+        assertEmptyLibraries(project, noLicenseLibraries)
 
         def assetsDir = project.file("src/main/assets")
         if (!assetsDir.exists()) {
@@ -276,7 +282,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
         project.file("${assetsDir}/${ext.outputJson}").write(json.toString())
     }
 
-    static void assertEmptyLibraries(ArrayList<LibraryInfo> noLicenseLibraries) {
+    static void assertEmptyLibraries(Project project, ArrayList<LibraryInfo> noLicenseLibraries) {
         if (noLicenseLibraries.empty) return;
         StringBuilder message = new StringBuilder();
         message.append("Not enough information for:\n")
@@ -284,15 +290,10 @@ class LicenseToolsPlugin implements Plugin<Project> {
         noLicenseLibraries.each { libraryInfo ->
             message.append("- artifact: ${libraryInfo.artifactId}\n")
             message.append("  name: ${libraryInfo.name}\n")
-            if (!libraryInfo.license) {
-                message.append("  license: #LICENSE#\n")
-            }
-            if (!libraryInfo.copyrightStatement) {
-                message.append("  copyrightHolder: #AUTHOR# (or authors: [...])\n")
-                message.append("  year: #YEAR# (optional)\n")
-            }
+            message.append("  license: ${libraryInfo.license}\n")
+            message.append("  copyrightHolder: ${libraryInfo.copyrightHolder}\n")
         }
-        throw new RuntimeException(message.toString())
+        project.logger.error(message.toString())
     }
 
     // originated from https://github.com/hierynomus/license-gradle-plugin DependencyResolver.groovy
