@@ -7,6 +7,10 @@ margin: 1em 0;
 padding: 0 0.5em;
 border-bottom: 1px solid #ebeae6;
 }
+.footer {
+margin: 1em 0;
+padding: 0 0.5em;
+}
 .title {
 font-size: 129%;
 font-weight: bold;

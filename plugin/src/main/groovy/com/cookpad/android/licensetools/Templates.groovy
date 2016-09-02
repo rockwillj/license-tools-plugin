@@ -28,13 +28,21 @@ public class Templates {
         }
     }
 
-    public static String wrapWithLayout(CharSequence content, File projectDir) {
+    public static String wrapWithLayout(CharSequence content, File projectDir, ApplicationInfo appInfo) {
         def templateFile = "template/layout.html"
         def templateCssFile = "template/layout.css"
+        def templateHeaderFile = "template/header.html"
+        def templateFooterFile = "template/footer.html"
         def cssContent = readResourceContent(templateCssFile, projectDir)
+        def headerContent = templateEngine.createTemplate(readResourceContent(templateHeaderFile, projectDir)).make([
+                "application": appInfo
+        ]).toString()
+        def footerContent = readResourceContent(templateFooterFile, projectDir)
         return templateEngine.createTemplate(readResourceContent(templateFile, projectDir)).make([
                 "css": makeIndent(cssContent, 4),
-                "content": makeIndent(content, 4)
+                "header": makeIndent(headerContent, 4),
+                "content": makeIndent(content, 4),
+                "footer": makeIndent(footerContent, 4)
         ])
     }
 

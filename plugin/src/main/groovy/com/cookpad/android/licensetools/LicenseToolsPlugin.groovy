@@ -211,9 +211,11 @@ class LicenseToolsPlugin implements Plugin<Project> {
             assetsDir.mkdirs()
         }
 
+        def applicationInfo = ApplicationInfo.fromYaml(loadYaml(project.file(ext.applicationYaml)))
+
         project.logger.info("render ${assetsDir}/${ext.outputHtml}")
         try {
-            project.file("${assetsDir}/${ext.outputHtml}").write(Templates.wrapWithLayout(content, project.projectDir))
+            project.file("${assetsDir}/${ext.outputHtml}").write(Templates.wrapWithLayout(content, project.projectDir, applicationInfo))
         } catch (FileNotFoundException e) {
             project.logger.error(e.message)
         }
