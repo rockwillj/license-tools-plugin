@@ -2,6 +2,9 @@ body {
 color: #4c4a40;
 font-size: 87.5%;
 }
+a {
+word-wrap: break-word;
+}
 .header, .library {
 margin: 1em 0;
 padding: 0 0.5em;
