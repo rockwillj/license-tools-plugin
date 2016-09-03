@@ -1,8 +1,10 @@
 <div class="library">
   <!-- https://opensource.org/licenses/BSD-3-Clause -->
   <h2>${library.name}</h2>
-  <% print library.url.isEmpty() ? "" : """<p><a href="${library.url}">${library.url}</a></p>""" %>
+  <p><%= library.url ? """<a href="${library.url}">${library.url}</a>""" : "" %></p>
   <div class="license">
+    <h3>The BSD 3-Clause License</h3>
+
     <p>Copyright (c) ${library.year}, ${library.copyrightHolder}<br />
       All rights reserved.</p>
 

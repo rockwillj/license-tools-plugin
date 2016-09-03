@@ -25,7 +25,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
         def libraryInfo = new LibraryInfo()
         libraryInfo.artifactId = ArtifactId.parse(lib.artifact as String)
         libraryInfo.filename = lib.filename as String
-        libraryInfo.year = lib.year as String
+        libraryInfo.year = lib.year ?: ""
         libraryInfo.libraryName = lib.name as String
         if (lib.copyrightHolder) {
             libraryInfo.copyrightHolder = lib.copyrightHolder
@@ -39,7 +39,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
         libraryInfo.license = lib.license ?: ""
         libraryInfo.notice = lib.notice as String
         libraryInfo.skip = lib.skip as boolean
-        libraryInfo.url = lib.url as String
+        libraryInfo.url = lib.url ?: ""
         return libraryInfo
     }
 
@@ -68,7 +68,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
         if (notice) {
             return notice;
         } else if (!copyrightHolder) {
-            return null;
+            return "";
         } else {
             return buildCopyrightStatement(copyrightHolder)
         }
@@ -77,7 +77,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
     private String buildCopyrightStatement(String copyrightHolder) {
         def dot = copyrightHolder.endsWith(".") ? "" : "."
         if (year) {
-            return "Copyright &copy; ${year}, ${copyrightHolder}${dot} All rights reserved."
+            return "Copyright &copy; ${year} ${copyrightHolder}${dot} All rights reserved."
         } else {
             return "Copyright &copy; ${copyrightHolder}${dot} All rights reserved."
         }

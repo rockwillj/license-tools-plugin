@@ -1,11 +1,11 @@
 <div class="library">
   <!-- https://opensource.org/licenses/ISC -->
   <h2>${library.name}</h2>
-  <% print library.url.isEmpty() ? "" : """<p><a href="${library.url}">${library.url}</a></p>""" %>
+  <p><%= library.url ? """<a href="${library.url}">${library.url}</a>""" : "" %></p>
   <div class="license">
     <h3>ISC License (ISC)</h3>
 
-    <p>Copyright (c) ${library.year}, ${library.copyrightHolder} <% print library.email.isEmpty() ? "" : """&lt;${library.email}&gt;""" %></p>
+    <p>Copyright (c) ${library.year}, ${library.copyrightHolder} <%= library.email ? "&lt;${library.email}&gt;" : "" %></p>
 
     <p>Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.</p>
 

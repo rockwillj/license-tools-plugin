@@ -1,7 +1,8 @@
 <div class="library">
   <!-- https://opensource.org/licenses/LGPL-2.1 -->
   <h2>${library.name}</h2>
-  <% print library.url.isEmpty() ? "" : """<p><a href="${library.url}">${library.url}</a></p>""" %>
+  <p>${library.copyrightStatement.replaceAll("\n", "<br/>")}</p>
+  <p><%= library.url ? """<a href="${library.url}">${library.url}</a>""" : "" %></p>
   <div class="license">
     <p>GNU Lesser General Public License<br />
       Version 2.1, February 1999</p>

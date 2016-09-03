@@ -1,7 +1,8 @@
 <div class="library">
   <!-- https://opensource.org/licenses/GPL-3.0 -->
   <h2>${library.name}</h2>
-  <% print library.url.isEmpty() ? "" : """<p><a href="${library.url}">${library.url}</a></p>""" %>
+  <p>${library.copyrightStatement.replaceAll("\n", "<br/>")}</p>
+  <p><%= library.url ? """<a href="${library.url}">${library.url}</a>""" : "" %></p>
   <div class="license">
     <p><b>GNU GENERAL PUBLIC LICENSE</b><br />
       Version 3, 29 June 2007</p>
