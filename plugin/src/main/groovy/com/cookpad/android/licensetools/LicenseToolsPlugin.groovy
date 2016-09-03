@@ -71,6 +71,12 @@ class LicenseToolsPlugin implements Plugin<Project> {
             description = 'Check whether dependency licenses are listed in licenses.yml'
         }
 
+        def generateLicenseYaml = project.task('generateLicenseYaml') << {
+            initialize(project)
+            generateLicenseYaml(project)
+        }
+        generateLicenseYaml.dependsOn('checkLicenses')
+
         def generateLicensePage = project.task('generateLicensePage') << {
             initialize(project)
             generateLicensePage(project)
@@ -155,18 +161,13 @@ class LicenseToolsPlugin implements Plugin<Project> {
     void generateLicenseYaml(Project project) {
         def ext = project.extensions.getByType(LicenseToolsExtension)
 
-        if (!project.file(ext.licensesYaml).exists()) {
-            return
-        }
-
         def assetsDir = project.file("src/main/assets")
         if (!assetsDir.exists()) {
             assetsDir.mkdirs()
         }
 
         project.logger.info("render ${assetsDir}/${ext.outputYaml}")
-        project.file("${assetsDir}/${ext.outputYaml}").write("")
-        project.file("${assetsDir}/${ext.outputYaml}") << project.file(ext.licensesYaml).text
+        project.file("${assetsDir}/${ext.outputYaml}").write(project.file(ext.licensesYaml).text)
     }
 
     void appendLicenseYaml(Project project, String content) {
