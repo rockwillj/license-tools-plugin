@@ -89,21 +89,92 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
 
     static String normalizeLicense(String name) {
         switch (name) {
+            case ~/(?i).*\bapache.*1\.0.*/:
+                return "Apache-1.0"
+            case ~/(?i).*\bapache.*1.*/:
+                return "Apache-1.1"
             case ~/(?i).*\bapache.*2.*/:
-                return "apache2"
-            case ~/(?i).*\bmit\b.*/:
-                return "mit"
+            case ~/(?i).*\bapache.*/:
+                return "Apache-2.0"
+
             case ~/(?i).*\bbsd\b.*\b2\b.*/:
+            case ~/(?i).*\bbsd_2.*/:
             case ~/(?i).*\bsimplified\b.*\bbsd\b.*/:
-                return "bsd_2_clauses"
+            case ~/(?i).*\bfreebsd\b.*/:
+                return "BSD-2-Clause"
             case ~/(?i).*\bbsd\b.*\b3\b.*/:
-                return "bsd_3_clauses"
+            case ~/(?i).*\bbsd_3.*/:
+            case ~/(?i).*\brevised\b.*\bbsd\b.*/:
+            case ~/(?i).*\bnew\b.*\bbsd\b.*/:
+            case ~/(?i).*\bmodified\b.*\bbsd\b.*/:
+                return "BSD-3-Clause"
             case ~/(?i).*\bbsd\b.*\b4\b.*/:
-                return "bsd_4_clauses" // not supported because it is a very legacy license
+            case ~/(?i).*\bbsd_4.*/:
+            case ~/(?i).*\boriginal\b.*\bbsd\b.*/:
+                return "BSD-4-Clause"
+            case ~/(?i).*\bbsd\b.*\b0\b.*/:
+            case ~/(?i).*\bbsd_0.*/:
+            case ~/(?i).*\bbsd\b.*\bzero\b.*/:
+                return "FPL"
             case ~/(?i).*\bbsd\b.*/:
-                return "bsd_3_clauses"
+                return "BSD-3-Clause"
+
+            case ~/(?i).*\bcommon\b.*\bdevelopment\b.*\bdistribution\b.*/:
+            case ~/(?i).*\bcddl\b.*/:
+                return "CDDL"
+
+            case ~/(?i).*\bcommon\b.*\bpublic\b.*/:
+            case ~/(?i).*\bcpl\b.*/:
+                return "CPL"
+            case ~/(?i).*\beclipse\b.*\bpublic\b.*/:
+            case ~/(?i).*\bepl\b.*/:
+                return "EPL"
+
+            case ~/(?i).*\bfree\b.*\bpublic\b.*/:
+            case ~/(?i).*\bfpl\b.*/:
+                return "FPL"
+
+            case ~/(?i).*\bgnu\b.*\blesser\b.*\bgeneral\b.*\bpublic\b.*2.*/:
+            case ~/(?i).*\blgpl\b.*2.*/:
+                return "LGPL-2.1"
+            case ~/(?i).*\bgnu\b.*\blesser\b.*\bgeneral\b.*\bpublic\b.*3.*/:
+            case ~/(?i).*\bgnu\b.*\blesser\b.*\bgeneral\b.*\bpublic\b.*/:
+            case ~/(?i).*\blgpl\b.*3.*/:
+            case ~/(?i).*\blgpl\b.*/:
+                return "LGPL-3.0"
+
+            case ~/(?i).*\bgnu\b.*\bgeneral\b.*\bpublic\b.*1.*/:
+            case ~/(?i).*\bgpl\b.*1.*/:
+                return "GPL-1.0"
+            case ~/(?i).*\bgnu\b.*\bgeneral\b.*\bpublic\b.*2.*/:
+            case ~/(?i).*\bgpl\b.*2.*/:
+                return "GPL-2.0"
+            case ~/(?i).*\bgnu\b.*\bgeneral\b.*\bpublic\b.*3.*/:
+            case ~/(?i).*\bgnu\b.*\bgeneral\b.*\bpublic\b.*/:
+            case ~/(?i).*\bgpl\b.*3.*/:
+            case ~/(?i).*\bgpl\b.*/:
+                return "GPL-3.0"
+
             case ~/(?i).*\bisc\b.*/:
-                return "isc"
+                return "ISC"
+
+            case ~/(?i).*\bmit\b.*/:
+            case ~/(?i).*\bx11\b.*/:
+            case ~/(?i).*\bx\b.*/:
+                return "MIT"
+
+            case ~/(?i).*\bmozilla\b.*\bpublic\b.*1\.0.*/:
+            case ~/(?i).*\bmpl\b.*1\.0.*/:
+                return "MPL-1.0"
+            case ~/(?i).*\bmozilla\b.*\bpublic\b.*1.*/:
+            case ~/(?i).*\bmpl\b.*1.*/:
+                return "MPL-1.1"
+            case ~/(?i).*\bmozilla\b.*\bpublic\b.*2.*/:
+            case ~/(?i).*\bmozilla\b.*\bpublic\b.*/:
+            case ~/(?i).*\bmpl\b.*2.*/:
+            case ~/(?i).*\bmpl\b.*/:
+                return "MPL-2.0"
+
             default:
                 return name
         }
