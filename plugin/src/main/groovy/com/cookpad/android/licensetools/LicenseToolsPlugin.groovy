@@ -211,7 +211,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
             assetsDir.mkdirs()
         }
 
-        def applicationInfo = ApplicationInfo.fromYaml(loadYaml(project.file(ext.applicationYaml)))
+        def applicationInfo = ApplicationInfo.fromProperty(project.applicationInfo)
 
         project.logger.info("render ${assetsDir}/${ext.outputHtml}")
         try {

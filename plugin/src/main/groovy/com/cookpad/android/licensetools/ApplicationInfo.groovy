@@ -10,8 +10,7 @@ public class ApplicationInfo {
 
     String url = "";
 
-    // from libraries.yml
-    public static ApplicationInfo fromYaml(Object app) {
+    public static ApplicationInfo fromProperty(Object app) {
         def applicationInfo = new ApplicationInfo()
         applicationInfo.name = app.name as String
         applicationInfo.year = app.year as String
