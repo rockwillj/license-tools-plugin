@@ -39,23 +39,11 @@ public class Templates {
         ]).toString()
         def footerContent = readResourceContent(templateFooterFile, projectDir)
         return templateEngine.createTemplate(readResourceContent(templateFile, projectDir)).make([
-                "css": makeIndent(cssContent, 4),
-                "header": makeIndent(headerContent, 4),
-                "content": makeIndent(content, 4),
-                "footer": makeIndent(footerContent, 4)
+                "css": cssContent,
+                "header": headerContent,
+                "content": content,
+                "footer": footerContent
         ])
-    }
-
-    static String makeIndent(CharSequence content, int level) {
-        def s = new StringBuilder()
-        content.eachLine { line ->
-            for (int i = 0; i < level; i++) {
-                s.append(" ")
-            }
-            s.append(line)
-            s.append("\n")
-        }
-        return s.toString()
     }
 
     static String readResourceContent(String filename, File projectDir) {

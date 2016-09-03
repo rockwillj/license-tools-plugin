@@ -1,46 +1,42 @@
 body {
-color: #4c4a40;
-font-size: 87.5%;
+    color: #444;
+}
+p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+ul, ol {
+    padding-left: 20px;
+}
+blockquote {
+    margin: 5px;
+    color: #666;
+}
+pre {
+    padding: 5px;
+    font-size: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    white-space: pre-wrap;
 }
 a {
-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.header, .footer, .library {
+    margin: 10px 0;
+    padding: 0 10px;
 }
 .header, .library {
-margin: 1em 0;
-padding: 0 0.5em;
-border-bottom: 1px solid #ebeae6;
-}
-.footer {
-margin: 1em 0;
-padding: 0 0.5em;
-}
-.title {
-font-size: 129%;
-font-weight: bold;
-margin: 1em 0
+    border-bottom: 1px solid #ebeae6;
 }
 .license {
-background-color: #f7f7f9;
-border-radius: 4px;
-border: 1px solid #e1e1e8;
-font-size: 80%;
-padding: 9px 14px;
-margin-bottom: 14px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    background-color: #f7f7f9;
+    border-radius: 4px;
+    border: 1px solid #e1e1e8;
 }
-.license h1, .license h2 {
-font-size: 100%;
-font-weight: bold;
-}
-.license .inline {
-display: inline;
-}
-.license .block {
-margin: 1em 0;
-}
-.license pre {
-white-space: pre-wrap;
-}
-.license .low-alpha {
-list-style-type: lower-alpha;
-padding-left: 2em;
+.license, .license p {
+    font-size: 11px;
 }
