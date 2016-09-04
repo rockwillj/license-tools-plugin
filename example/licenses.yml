@@ -1,12 +1,32 @@
 - artifact: com.android.support:+:+
   name: Android Support Libraries
   copyrightHolder: The Android Open Source Project
-  license: apache2
+  license: Apache License, Version 2.0
+- artifact: com.google.android.gms:+:+
+  name: Google Play Services
+  copyrightHolder: The Android Open Source Project
+  license: Apache License, Version 2.0
+- artifact: com.google.code.gson:gson:+
+  name: Google Gson
+  copyrightHolder: Google Inc.
+  license: Apache License, Version 2.0
+  url: https://github.com/google/gson
 - artifact: io.reactivex:rxjava:+
   name: RxJava
   copyrightHolder: Netflix, Inc.
-  license: apache2
-  url: "https://github.com/ReactiveX/RxJava"
+  license: Apache License, Version 2.0
+  url: https://github.com/ReactiveX/RxJava
+- artifact: io.reactivex:rxandroid:+
+  name: RxAndroid
+  copyrightHolder: The RxAndroid authors
+  license: Apache License, Version 2.0
+  url: https://github.com/ReactiveX/RxAndroid
+- artifact: com.github.bumptech.glide:+:+
+  name: Glide
+  copyrightHolder: Google Inc.
+  license: BSD, part MIT and Apache 2.0
+  url: https://github.com/bumptech/glide
+
 - artifact: com.tunnelvisionlabs:antlr4-runtime:4.5
   name: ANTLR4
   authors:
@@ -19,25 +39,48 @@
     Copyright (c) 2015 FUJI Goro (gfx)
     SQLite.g4 is: Copyright (c) 2014 by Bart Kiers
   license: apache_2
-- artifact: com.github.bumptech.glide:glide:+
-  name: Glide
-  copyrightHolder: Google Inc.
-  license: bsd_2_clauses
-  url: "https://github.com/bumptech/glide"
-- artifact: com.google.code.gson:gson:+
-  name: Gson
-  copyrightHolder: Google Inc.
-  license: apache2
-- artifact: io.reactivex:rxandroid:1.1.0
-  name: RxAndroid
-  copyrightHolder: The RxAndroid authors
-  license: apache2
-  url: "https://github.com/ReactiveX/RxAndroid"
-- artifact: com.google.android.gms:+:+
-  skip: true
-- artifact: com.android.databinding:+:+
-  skip: true
 - artifact: com.squareup.picasso:picasso:+
   name: Picasso
   copyrightHolder: Square, Inc.
   license: apache2
+
+- artifact: com.squareup.okhttp3:+:+
+  name: OkHttp
+  copyrightHolder: Square, Inc.
+  license: Apache License, Version 2.0
+  url: http://square.github.io/okhttp/
+- artifact: com.squareup.okio:okio:+
+  name: Okio
+  copyrightHolder: Square, Inc.
+  license: Apache License, Version 2.0
+  url: https://github.com/square/okio
+  skip: true
+- artifact: com.squareup.retrofit2:retrofit:+
+  name: Retrofit
+  copyrightHolder: Square, Inc.
+  license: Apache License, Version 2.0
+  url: http://square.github.io/retrofit/
+- artifact: com.squareup.retrofit2:adapter-rxjava:+
+  name: "Adapter: RxJava"
+  copyrightHolder: Square, Inc.
+  license: Apache License, Version 2.0
+- artifact: com.squareup.retrofit2:converter-gson:+
+  name: "Converter: Gson"
+  copyrightHolder: Square, Inc.
+  license: Apache License, Version 2.0
+- artifact: com.facebook.android:facebook-android-sdk:+
+  name: Facebook SDK
+  copyrightHolder: Facebook, Inc.
+  license: Facebook Platform License
+  url: https://developers.facebook.com/docs/android
+- artifact: com.parse.bolts:bolts-android:+
+  name: Bolts
+  copyrightHolder: Facebook, Inc.
+  license: BSD 3-Clause License
+  url: https://github.com/BoltsFramework/Bolts-Android
+  skip: true
+- artifact: com.google.ads.conversiontracking:+:+
+  name: AdWords Conversion Tracking SDK
+  copyrightHolder: Google, Inc.
+  license: Apache License, Version 2.0
+  url: https://developers.google.com/app-conversion-tracking/android/
