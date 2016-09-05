@@ -23,8 +23,8 @@
   url: https://github.com/ReactiveX/RxAndroid
 - artifact: com.github.bumptech.glide:+:+
   name: Glide
-  copyrightHolder: Google Inc.
-  license: BSD, part MIT and Apache 2.0
+  copyrightHolder: Google Inc. and others
+  license: BSD, part MIT and Apache 2.0 License
   url: https://github.com/bumptech/glide
 
 - artifact: com.tunnelvisionlabs:antlr4-runtime:4.5
