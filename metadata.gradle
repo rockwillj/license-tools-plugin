@@ -4,6 +4,7 @@ ext {
             description : 'A Gradle plugin to handle android application license notations',
             organization: 'attosoft',
             groupId     : 'info.attosoft.licensetools',
+            version     : '0.17.0_r1',
             website     : 'https://github.com/rockwillj/license-tools-plugin',
             repository  : 'git@github.com:rockwillj/license-tools-plugin.git',
             licences    : ['Apache-2.0'],

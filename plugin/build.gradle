@@ -13,12 +13,6 @@ repositories {
 
 apply from: file('../metadata.gradle')
 
-ext {
-    versionFile = file("../VERSION")
-    versionName = versionFile.readLines()[0].trim()
-    metadata.version = versionName
-}
-
 apply plugin: 'groovy'
 apply plugin: 'maven' // to add "plugin:install" to install it locally
 apply plugin: 'com.novoda.bintray-release' // to upload it to bintray
