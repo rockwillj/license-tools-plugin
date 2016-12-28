@@ -4,6 +4,8 @@ ext {
             groupId     : 'info.attosoft.licensetools',
             website     : 'https://github.com/rockwillj/license-tools-plugin',
             repository  : 'git@github.com:rockwillj/license-tools-plugin.git',
-            licences    : ['Apache-2.0']
+            licences    : ['Apache-2.0'],
+            bintrayUser : 'BINTRAY_USERNAME',
+            bintrayKey  : 'BINTRAY_KEY'
     ]
 }

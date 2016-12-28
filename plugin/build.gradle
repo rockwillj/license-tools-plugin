@@ -55,4 +55,7 @@ publish {
     website = metadata.website
     repository = metadata.repository
     licences = metadata.licences
+
+    bintrayUser = metadata.bintrayUser
+    bintrayKey = metadata.bintrayKey
 }
