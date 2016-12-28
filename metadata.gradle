@@ -1,5 +1,7 @@
 ext {
     metadata = [
+            artifactId  : 'license-tools-plugin',
+            description : 'A Gradle plugin to handle android application license notations',
             organization: 'attosoft',
             groupId     : 'info.attosoft.licensetools',
             website     : 'https://github.com/rockwillj/license-tools-plugin',

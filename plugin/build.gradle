@@ -27,11 +27,10 @@ targetCompatibility = JavaVersion.VERSION_1_8
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 final metadata = ext.metadata
-final ARTIFACT_ID = "license-tools-plugin"
 
 // for "plugin:install"
 group = metadata.groupId
-jar.baseName = ARTIFACT_ID
+jar.baseName = metadata.artifactId
 version = metadata.version
 
 dependencies {
@@ -44,10 +43,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-
 publish {
-    artifactId = ARTIFACT_ID
-    desc = 'A Gradle plugin to handle android application license notations'
+    artifactId = metadata.artifactId
+    desc = metadata.description
 
     userOrg = metadata.organization
     groupId = metadata.groupId
