@@ -40,3 +40,26 @@ a {
 .license, .license p {
     font-size: 11px;
 }
+.collapse {
+    height: 200px;
+    overflow: hidden;
+}
+input {
+    display: none;
+}
+label {
+    position: absolute;
+    right: 20px;
+    margin: 5px;
+    padding: 5px;
+    font-weight: bold;
+}
+label::before {
+    content: "+";
+}
+input:checked ~ .collapse {
+    height: auto;
+}
+input:checked ~ label::before {
+    content: "-";
+}

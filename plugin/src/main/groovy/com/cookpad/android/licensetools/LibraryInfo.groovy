@@ -2,6 +2,8 @@ package com.cookpad.android.licensetools
 
 public class LibraryInfo implements Comparable<LibraryInfo> {
 
+    static int index = 0
+
     String libraryName = ""
 
     ArtifactId artifactId;
@@ -19,6 +21,8 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
     String url = "";
 
     boolean skip = false
+
+    String id = ""
 
     // from libraries.yml
     public static LibraryInfo fromYaml(Object lib) {
@@ -40,6 +44,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
         libraryInfo.notice = lib.notice as String
         libraryInfo.skip = lib.skip as boolean
         libraryInfo.url = lib.url ?: ""
+        libraryInfo.id = "library" + ++index
         return libraryInfo
     }
 

@@ -46,7 +46,29 @@ a {
 .license, .license p {
     font-size: 11px;
 }
-
+.collapse {
+    height: 200px;
+    overflow: hidden;
+}
+input {
+    display: none;
+}
+label {
+    position: absolute;
+    right: 20px;
+    margin: 5px;
+    padding: 5px;
+    font-weight: bold;
+}
+label::before {
+    content: "+";
+}
+input:checked ~ .collapse {
+    height: auto;
+}
+input:checked ~ label::before {
+    content: "-";
+}
   </style>
 </head>
 <body>
@@ -60,7 +82,8 @@ a {
   <h2>Android Support Libraries</h2>
   <p>Copyright &copy; The Android Open Source Project. All rights reserved.</p>
   <p></p>
-  <div class="license">
+  <input id="library1" type="checkbox"><label for="library1"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -158,7 +181,8 @@ limitations under the License.
   <h2>Google Play Services</h2>
   <p>Copyright &copy; The Android Open Source Project. All rights reserved.</p>
   <p></p>
-  <div class="license">
+  <input id="library2" type="checkbox"><label for="library2"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -256,7 +280,8 @@ limitations under the License.
   <h2>Google Gson</h2>
   <p>Copyright &copy; Google Inc. All rights reserved.</p>
   <p><a href="https://github.com/google/gson">https://github.com/google/gson</a></p>
-  <div class="license">
+  <input id="library3" type="checkbox"><label for="library3"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -354,7 +379,8 @@ limitations under the License.
   <h2>RxJava</h2>
   <p>Copyright &copy; Netflix, Inc. All rights reserved.</p>
   <p><a href="https://github.com/ReactiveX/RxJava">https://github.com/ReactiveX/RxJava</a></p>
-  <div class="license">
+  <input id="library4" type="checkbox"><label for="library4"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -452,7 +478,8 @@ limitations under the License.
   <h2>RxAndroid</h2>
   <p>Copyright &copy; The RxAndroid authors. All rights reserved.</p>
   <p><a href="https://github.com/ReactiveX/RxAndroid">https://github.com/ReactiveX/RxAndroid</a></p>
-  <div class="license">
+  <input id="library5" type="checkbox"><label for="library5"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -550,7 +577,8 @@ limitations under the License.
   <h2>Glide</h2>
   <p>Copyright &copy; Google Inc. and others. All rights reserved.</p>
   <p><a href="https://github.com/bumptech/glide">https://github.com/bumptech/glide</a></p>
-  <div class="license">
+  <input id="library6" type="checkbox"><label for="library6"></label>
+  <div class="license collapse">
     <h3>BSD, part MIT and Apache 2.0 License</h3>
 
 <pre>
@@ -677,7 +705,8 @@ that this copyright notice remain intact.
   <h2>Android Orma</h2>
   <p>Copyright (c) 2015 FUJI Goro (gfx)<br/>SQLite.g4 is: Copyright (c) 2014 by Bart Kiers<br/></p>
   <p></p>
-  <div class="license">
+  <input id="library8" type="checkbox"><label for="library8"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -775,7 +804,8 @@ limitations under the License.
   <h2>Picasso</h2>
   <p>Copyright &copy; Square, Inc. All rights reserved.</p>
   <p></p>
-  <div class="license">
+  <input id="library9" type="checkbox"><label for="library9"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -873,7 +903,8 @@ limitations under the License.
   <h2>OkHttp</h2>
   <p>Copyright &copy; Square, Inc. All rights reserved.</p>
   <p><a href="http://square.github.io/okhttp/">http://square.github.io/okhttp/</a></p>
-  <div class="license">
+  <input id="library10" type="checkbox"><label for="library10"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -971,7 +1002,8 @@ limitations under the License.
   <h2>Retrofit</h2>
   <p>Copyright &copy; Square, Inc. All rights reserved.</p>
   <p><a href="http://square.github.io/retrofit/">http://square.github.io/retrofit/</a></p>
-  <div class="license">
+  <input id="library12" type="checkbox"><label for="library12"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -1069,7 +1101,8 @@ limitations under the License.
   <h2>Adapter: RxJava</h2>
   <p>Copyright &copy; Square, Inc. All rights reserved.</p>
   <p></p>
-  <div class="license">
+  <input id="library13" type="checkbox"><label for="library13"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -1167,7 +1200,8 @@ limitations under the License.
   <h2>Converter: Gson</h2>
   <p>Copyright &copy; Square, Inc. All rights reserved.</p>
   <p></p>
-  <div class="license">
+  <input id="library14" type="checkbox"><label for="library14"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>
@@ -1295,7 +1329,8 @@ limitations under the License.
   <h2>AdWords Conversion Tracking SDK</h2>
   <p>Copyright &copy; Google, Inc. All rights reserved.</p>
   <p><a href="https://developers.google.com/app-conversion-tracking/android/">https://developers.google.com/app-conversion-tracking/android/</a></p>
-  <div class="license">
+  <input id="library17" type="checkbox"><label for="library17"></label>
+  <div class="license collapse">
     <h3>Apache License<br />
       Version 2.0, January 2004<br />
       http://www.apache.org/licenses/</h3>

@@ -3,7 +3,8 @@
   <h2>${library.name}</h2>
   <p>${library.copyrightStatement.replaceAll("\n", "<br/>")}</p>
   <p><%= library.url ? """<a href="${library.url}">${library.url}</a>""" : "" %></p>
-  <div class="license">
+  <input id="${library.id}" type="checkbox"><label for="${library.id}"></label>
+  <div class="license collapse">
     <h3>Apache Software License</h3>
 
     <p>Version 1.1</p>
