@@ -1,8 +1,8 @@
 # Yet Another Android License Tools Plugin (YAALTP) [![CircleCI](https://circleci.com/gh/cookpad/license-tools-plugin.svg?style=svg)](https://circleci.com/gh/cookpad/license-tools-plugin) [ ![Download](https://api.bintray.com/packages/attosoft/maven/license-tools-plugin/images/download.svg) ](https://bintray.com/attosoft/maven/license-tools-plugin/_latestVersion)
 
-English | [日本語](license-tools-plugin/blob/master/README.ja.md)
+English | [日本語](README.ja.md)
 
-**YAALTP is a fork of [Android License Tools Plugin](cookpad/license-tools-plugin).**
+**YAALTP is a fork of [Android License Tools Plugin](/cookpad/license-tools-plugin).**
 
 Gradle Plugin to check library licenses and generate license pages.
 
@@ -28,7 +28,7 @@ buildscript {
 apply plugin: 'com.cookpad.android.licensetools'
 ```
 
-See [example/build.gradle](license-tools-plugin/blob/master/example/build.gradle) for example.
+See [example/build.gradle](example/build.gradle) for example.
 
 ## How To Use
 
@@ -78,7 +78,7 @@ Then, `./gradlew checkLicenses` will passes. **(It does not have to pass in YAAL
 
 This plugin does not provide `Activity` nor `Fragment` to show `licenses.html`. You should add it by yourself.
 
-[example/MainActivity](license-tools-plugin/blob/master/example/src/main/java/com/cookpad/android/licensetools/example/MainActivity.java) is an example.
+[example/MainActivity](example/src/main/java/com/cookpad/android/licensetools/example/MainActivity.java) is an example.
 
 ## DataSet Format
 
