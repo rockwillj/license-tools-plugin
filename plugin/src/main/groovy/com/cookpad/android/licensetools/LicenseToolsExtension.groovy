@@ -6,6 +6,10 @@ public class LicenseToolsExtension {
 
     public File licensesYaml = new File("licenses.yml");
 
+    public File applicationYaml = new File("application.yml");
+
+    public File outputYaml = new File("licenses.yml");
+
     public File outputHtml = new File("licenses.html");
 
     public File outputJson = new File("licenses.json");

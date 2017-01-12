@@ -1,7 +1,7 @@
 package com.cookpad.android.licensetools
 
+import groovy.json.JsonBuilder
 import groovy.util.slurpersupport.GPathResult
-import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -9,7 +9,6 @@ import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.xml.sax.helpers.DefaultHandler
 import org.yaml.snakeyaml.Yaml
-import groovy.json.JsonBuilder
 
 class LicenseToolsPlugin implements Plugin<Project> {
 
@@ -41,13 +40,15 @@ class LicenseToolsPlugin implements Plugin<Project> {
                 notDocumented.each { libraryInfo ->
                     def message = new StringBuffer()
                     message.append("- artifact: ${libraryInfo.artifactId.withWildcardVersion()}\n")
-                    message.append("  name: ${libraryInfo.name ?: "#NAME#"}\n")
-                    message.append("  copyrightHolder: ${libraryInfo.copyrightHolder ?: "#COPYRIGHT_HOLDER#"}\n")
-                    message.append("  license: ${libraryInfo.license ?: "#LICENSE#"}\n")
+                    message.append("  name: ${libraryInfo.escapedName ?: "(NAME)"}\n")
+                    message.append("  copyrightHolder: ${libraryInfo.copyrightHolder ?: "(COPYRIGHT_HOLDER)"}\n")
+                    message.append("  license: ${libraryInfo.license ?: "(LICENSE)"}\n")
                     if (libraryInfo.url) {
-                        message.append("  url: ${libraryInfo.url ?: "#URL#"}\n")
+                        message.append("  url: ${libraryInfo.url ?: "(URL)"}\n")
                     }
                     project.logger.warn(message.toString().trim())
+
+                    appendLicenseYaml(project, message.toString().trim())
                 }
             }
             if (notInDependencies.size() > 0) {
@@ -62,13 +63,19 @@ class LicenseToolsPlugin implements Plugin<Project> {
                     project.logger.warn("- artifact: ${libraryInfo.artifactId}\n  license: ${libraryInfo.license}")
                 }
             }
-            throw new GradleException("checkLicenses: missing libraries in ${ext.licensesYaml}")
+            project.logger.error("checkLicenses: missing libraries in ${ext.licensesYaml}")
         }
 
         checkLicenses.configure {
             group = "Verification"
             description = 'Check whether dependency licenses are listed in licenses.yml'
         }
+
+        def generateLicenseYaml = project.task('generateLicenseYaml') << {
+            initialize(project)
+            generateLicenseYaml(project)
+        }
+        generateLicenseYaml.dependsOn('checkLicenses')
 
         def generateLicensePage = project.task('generateLicensePage') << {
             initialize(project)
@@ -151,6 +158,24 @@ class LicenseToolsPlugin implements Plugin<Project> {
         return yaml.load(yamlFile.text) as Map<String, ?> ?: [:]
     }
 
+    void generateLicenseYaml(Project project) {
+        def ext = project.extensions.getByType(LicenseToolsExtension)
+
+        def assetsDir = project.file("src/main/assets")
+        if (!assetsDir.exists()) {
+            assetsDir.mkdirs()
+        }
+
+        project.logger.info("render ${assetsDir}/${ext.outputYaml}")
+        project.file("${assetsDir}/${ext.outputYaml}").write(project.file(ext.licensesYaml).text)
+    }
+
+    void appendLicenseYaml(Project project, String content) {
+        def ext = project.extensions.getByType(LicenseToolsExtension)
+
+        project.file(ext.licensesYaml).append("\n${content}")
+    }
+
     void generateLicensePage(Project project) {
         def ext = project.extensions.getByType(LicenseToolsExtension)
 
@@ -165,28 +190,36 @@ class LicenseToolsPlugin implements Plugin<Project> {
 
             // merge dependencyLicenses's libraryInfo into librariesYaml's
             def o = dependencyLicenses.find(libraryInfo.artifactId)
-            if (!libraryInfo.license) {
-                libraryInfo.license = o.license
+            if (o) {
+                libraryInfo.license = libraryInfo.license ?: o.license
+                libraryInfo.filename = o.filename
+                libraryInfo.artifactId = o.artifactId
+                libraryInfo.url = libraryInfo.url ?: o.url
             }
-            libraryInfo.filename = o.filename
-            libraryInfo.artifactId = o.artifactId
-            libraryInfo.url = o.url.isEmpty() ? libraryInfo.url ?: "" : o.url
             try {
-                content.append(Templates.buildLicenseHtml(libraryInfo));
+                content.append(Templates.buildLicenseHtml(libraryInfo, project.projectDir));
             } catch (NotEnoughInformationException e) {
                 noLicenseLibraries.add(e.libraryInfo)
+            } catch (FileNotFoundException e) {
+                project.logger.error(e.message)
             }
         }
 
-        assertEmptyLibraries(noLicenseLibraries)
+        assertEmptyLibraries(project, noLicenseLibraries)
 
         def assetsDir = project.file("src/main/assets")
         if (!assetsDir.exists()) {
             assetsDir.mkdirs()
         }
 
+        def applicationInfo = ApplicationInfo.fromProperty(project.applicationInfo)
+
         project.logger.info("render ${assetsDir}/${ext.outputHtml}")
-        project.file("${assetsDir}/${ext.outputHtml}").write(Templates.wrapWithLayout(content))
+        try {
+            project.file("${assetsDir}/${ext.outputHtml}").write(Templates.wrapWithLayout(content, project.projectDir, applicationInfo))
+        } catch (FileNotFoundException e) {
+            project.logger.error(e.message)
+        }
     }
 
     void generateLicenseJson(Project project) {
@@ -204,12 +237,12 @@ class LicenseToolsPlugin implements Plugin<Project> {
 
             // merge dependencyLicenses's libraryInfo into librariesYaml's
             def o = dependencyLicenses.find(libraryInfo.artifactId)
-            if (!libraryInfo.license) {
-                libraryInfo.license = o.license
+            if (o) {
+                libraryInfo.license = libraryInfo.license ?: o.license
+                // libraryInfo.filename = o.filename
+                libraryInfo.artifactId = o.artifactId
+                libraryInfo.url = libraryInfo.url ?: o.url
             }
-            // libraryInfo.filename = o.filename
-            libraryInfo.artifactId = o.artifactId
-            libraryInfo.url = o.url.isEmpty() ? libraryInfo.url ?: "" : o.url
             try {
                 Templates.assertLicenseAndStatement(libraryInfo)
                 librariesArray << libraryInfo
@@ -218,7 +251,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
             }
         }
 
-        assertEmptyLibraries(noLicenseLibraries)
+        assertEmptyLibraries(project, noLicenseLibraries)
 
         def assetsDir = project.file("src/main/assets")
         if (!assetsDir.exists()) {
@@ -252,7 +285,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
         project.file("${assetsDir}/${ext.outputJson}").write(json.toString())
     }
 
-    static void assertEmptyLibraries(ArrayList<LibraryInfo> noLicenseLibraries) {
+    static void assertEmptyLibraries(Project project, ArrayList<LibraryInfo> noLicenseLibraries) {
         if (noLicenseLibraries.empty) return;
         StringBuilder message = new StringBuilder();
         message.append("Not enough information for:\n")
@@ -260,15 +293,10 @@ class LicenseToolsPlugin implements Plugin<Project> {
         noLicenseLibraries.each { libraryInfo ->
             message.append("- artifact: ${libraryInfo.artifactId}\n")
             message.append("  name: ${libraryInfo.name}\n")
-            if (!libraryInfo.license) {
-                message.append("  license: #LICENSE#\n")
-            }
-            if (!libraryInfo.copyrightStatement) {
-                message.append("  copyrightHolder: #AUTHOR# (or authors: [...])\n")
-                message.append("  year: #YEAR# (optional)\n")
-            }
+            message.append("  license: ${libraryInfo.license}\n")
+            message.append("  copyrightHolder: ${libraryInfo.copyrightHolder}\n")
         }
-        throw new RuntimeException(message.toString())
+        project.logger.error(message.toString())
     }
 
     // originated from https://github.com/hierynomus/license-gradle-plugin DependencyResolver.groovy

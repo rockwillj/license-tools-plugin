@@ -1,14 +1,7 @@
 .gradle/
 local.properties
-gradle.properties
-.idea/*.xml
-.idea/.*
-.idea/*/*.xml
-!.idea/copyright/*.xml
-!.idea/dictionaries/orma.xml
-!.idea/codeStyleSettings.xml
+.idea/
 *.iml
 .DS_Store
-build
-captures/
-.gradletasknamecache
+build/
+buildSrc/
