@@ -2,7 +2,7 @@
 
 English | [日本語](README.ja.md)
 
-**YAALTP is a fork of [Android License Tools Plugin](https://github.om/cookpad/license-tools-plugin).**
+**YAALTP is a fork of [Android License Tools Plugin](https://github.com/cookpad/license-tools-plugin).**
 
 Gradle Plugin to check library licenses and generate license pages.
 
