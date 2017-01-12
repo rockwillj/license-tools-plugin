@@ -1,5 +1,7 @@
 # Yet Another Android License Tools Plugin (YAALTP) [![CircleCI](https://circleci.com/gh/cookpad/license-tools-plugin.svg?style=svg)](https://circleci.com/gh/cookpad/license-tools-plugin) [ ![Download](https://api.bintray.com/packages/attosoft/maven/license-tools-plugin/images/download.svg) ](https://bintray.com/attosoft/maven/license-tools-plugin/_latestVersion)
 
+English | [日本語](license-tools-plugin/blob/master/README.ja.md)
+
 **YAALTP is a fork of [Android License Tools Plugin](cookpad/license-tools-plugin).**
 
 Gradle Plugin to check library licenses and generate license pages.
@@ -10,7 +12,7 @@ Gradle Plugin to check library licenses and generate license pages.
 
 ## Setup
 
-This plugin requires **JDK7 (1.7.0 or later)**.
+**This plugin does not require JDK8 (1.8.0 or later)**.
 
 ```gradle
 buildscript {
@@ -36,7 +38,6 @@ See [example/build.gradle](license-tools-plugin/blob/master/example/build.gradle
 You will see the following texts in `app/licenses.yml`:
 
 ```yaml
-# Libraries not listed:
 - artifact: com.android.support:support-v4:+
   name: #NAME#
   copyrightHolder: #AUTHOR#
@@ -145,7 +146,7 @@ Run the following `bintrayUpload` task.
 
 To publish artifacts:
 
-Replace `BINTRAY_USERNAME` and `BINTRAY_KEY` with your bintray's user name and key in `metadata.gradle`.
+Replace `BINTRAY_USERNAME` and `BINTRAY_KEY` with your Bintray's user name and key in `metadata.gradle`.
 
 ```
 bintrayUser: 'BINTRAY_USERNAME',

@@ -1,7 +1,7 @@
 ext {
     metadata = [
             artifactId  : 'license-tools-plugin',
-            description : 'A Gradle plugin to handle android application license notations',
+            description : 'A fork of cookpad/license-tools-plugin that is a Gradle plugin to handle android application license notations',
             organization: 'attosoft',
             groupId     : 'info.attosoft.licensetools',
             version     : '0.17.0_r1',
