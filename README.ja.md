@@ -1,8 +1,8 @@
 # Yet Another Android License Tools Plugin (YAALTP) [![CircleCI](https://circleci.com/gh/cookpad/license-tools-plugin.svg?style=svg)](https://circleci.com/gh/cookpad/license-tools-plugin) [ ![Download](https://api.bintray.com/packages/attosoft/maven/license-tools-plugin/images/download.svg) ](https://bintray.com/attosoft/maven/license-tools-plugin/_latestVersion)
 
-[English](license-tools-plugin/blob/master/README.md) | 日本語
+[English](README.md) | 日本語
 
-**YAALTP は [Android License Tools Plugin](cookpad/license-tools-plugin) のフォークです。**
+**YAALTP は [Android License Tools Plugin](https://github.com/cookpad/license-tools-plugin) のフォークです。**
 
 ライブラリーのライセンスをチェックしてライセンスページを生成する Gradle プラグインです。
 
@@ -28,7 +28,7 @@ buildscript {
 apply plugin: 'com.cookpad.android.licensetools'
 ```
 
-記述例は [example/build.gradle](license-tools-plugin/blob/master/example/build.gradle) を参照してください。
+記述例は [example/build.gradle](example/build.gradle) を参照してください。
 
 ## 使い方
 
@@ -78,7 +78,7 @@ artifact の名前やバージョンではワイルドカードが利用でき�
 
 このプラグインは `licenses.html` を表示するための `Activity` や `Fragment` を提供しません。自分で追加する必要があります。
 
-記述例は [example/MainActivity](license-tools-plugin/blob/master/example/src/main/java/com/cookpad/android/licensetools/example/MainActivity.java) です。
+記述例は [example/MainActivity](example/src/main/java/com/cookpad/android/licensetools/example/MainActivity.java) です。
 
 ## データセットフォーマット
 
