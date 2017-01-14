@@ -21,7 +21,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'info.attosoft.licensetools:license-tools-plugin:0.17.0_r1'
+        classpath 'info.attosoft.licensetools:license-tools-plugin:0.19.1_r1'
     }
 }
 

@@ -21,7 +21,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'info.attosoft.licensetools:license-tools-plugin:0.17.0_r1'
+        classpath 'info.attosoft.licensetools:license-tools-plugin:0.19.1_r1'
     }
 }
 
@@ -146,7 +146,7 @@ Run the following `bintrayUpload` task.
 
 To publish artifacts:
 
-Replace `BINTRAY_USERNAME` and `BINTRAY_KEY` with your Bintray's user name and key in `metadata.gradle`.
+Replace `BINTRAY_USERNAME` and `BINTRAY_KEY` with your Bintray user name and key in `metadata.gradle`.
 
 ```
 bintrayUser: 'BINTRAY_USERNAME',
