@@ -6,7 +6,7 @@ ext {
     applicationInfo = [
             name           : "My App",
             copyrightHolder: "John Doe",
-            year           : "2015-2016",
+            year           : "2017",
             url            : "http://example.com/myapp"
     ]
 }
@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "com.cookpad.android.licensetools.example"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

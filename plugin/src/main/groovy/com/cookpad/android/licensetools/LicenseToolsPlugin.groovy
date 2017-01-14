@@ -21,7 +21,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.extensions.add(LicenseToolsExtension.NAME, LicenseToolsExtension)
 
-        def checkLicenses = project.task('checkLicenses') << {
+        def checkLicenses = project.task('checkLicenses').doLast {
             initialize(project)
 
             def notDocumented = dependencyLicenses.notListedIn(librariesYaml)
@@ -43,6 +43,9 @@ class LicenseToolsPlugin implements Plugin<Project> {
                     message.append("  name: ${libraryInfo.escapedName ?: "(NAME)"}\n")
                     message.append("  copyrightHolder: ${libraryInfo.copyrightHolder ?: "(COPYRIGHT_HOLDER)"}\n")
                     message.append("  license: ${libraryInfo.license ?: "(LICENSE)"}\n")
+                    if (libraryInfo.licenseUrl) {
+                        message.append("  licenseUrl: ${libraryInfo.licenseUrl ?: "(LICENSEURL)"}\n")
+                    }
                     if (libraryInfo.url) {
                         message.append("  url: ${libraryInfo.url ?: "(URL)"}\n")
                     }
@@ -71,19 +74,19 @@ class LicenseToolsPlugin implements Plugin<Project> {
             description = 'Check whether dependency licenses are listed in licenses.yml'
         }
 
-        def generateLicenseYaml = project.task('generateLicenseYaml') << {
+        def generateLicenseYaml = project.task('generateLicenseYaml').doLast {
             initialize(project)
             generateLicenseYaml(project)
         }
         generateLicenseYaml.dependsOn('checkLicenses')
 
-        def generateLicensePage = project.task('generateLicensePage') << {
+        def generateLicensePage = project.task('generateLicensePage').doLast {
             initialize(project)
             generateLicensePage(project)
         }
         generateLicensePage.dependsOn('checkLicenses')
 
-        def generateLicenseJson = project.task('generateLicenseJson') << {
+        def generateLicenseJson = project.task('generateLicenseJson').doLast {
             initialize(project)
             generateLicenseJson(project)
         }
@@ -149,6 +152,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
                 if (!libraryInfo.license) {
                     // takes the first license
                     libraryInfo.license = it.name.text().trim()
+                    libraryInfo.licenseUrl = it.url.text().trim()
                 }
             }
         }
@@ -266,6 +270,7 @@ class LicenseToolsPlugin implements Plugin<Project> {
                         copyrightHolder: l.copyrightHolder,
                         copyrightStatement: l.copyrightStatement,
                         license: l.license,
+                        licenseUrl: l.licenseUrl,
                         normalizedLicense: l.normalizedLicense,
                         year: l.year,
                         url: l.url,

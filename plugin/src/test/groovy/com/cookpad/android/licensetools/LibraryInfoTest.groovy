@@ -6,6 +6,7 @@ import static com.cookpad.android.licensetools.LibraryInfo.joinWords
 import static com.cookpad.android.licensetools.LibraryInfo.normalizeLicense
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotEquals
+import static org.junit.Assert.assertTrue
 
 public class LibraryInfoTest {
 
@@ -67,6 +68,17 @@ public class LibraryInfoTest {
         assertEquals("ISC", normalizeLicense("ISC"))
         assertEquals("ISC", normalizeLicense("The ISC License"))
 
+        assertEquals("MPL-2.0", normalizeLicense("mpl"))
+        assertEquals("MPL-2.0", normalizeLicense("MPL 2.0"))
+        assertEquals("MPL-2.0", normalizeLicense("Mozilla Public License 2.0"))
+        assertEquals("MPL-2.0", normalizeLicense("Mozilla Public License, Version 2.0"))
+        assertNotEquals("MPL-1.1", normalizeLicense("mpl1"))
+
+        assertEquals("EPL", normalizeLicense("epl"))
+        assertEquals("EPL", normalizeLicense("EPL 1.0"))
+        assertEquals("EPL", normalizeLicense("Eclipse Public License 1.0"))
+        assertEquals("EPL", normalizeLicense("Eclipse Public License, Version 1.0"))
+
         assertEquals("Other", normalizeLicense("Other"))
         assertEquals("No license found", normalizeLicense("No license found"))
 
@@ -92,6 +104,62 @@ public class LibraryInfoTest {
         ])
 
         assertEquals("Copyright &copy; Foo. All rights reserved.", libraryInfo.copyrightStatement)
+    }
+
+    @Test
+    public void testEquals() throws Exception {
+        LibraryInfo libraryInfo = LibraryInfo.fromYaml([
+                artifact: "com.example1:foo:1.0"
+        ])
+
+        assertEquals(libraryInfo, LibraryInfo.fromYaml([
+                artifact: "com.example1:foo:1.0"
+        ]))
+        assertNotEquals(libraryInfo, LibraryInfo.fromYaml([
+                artifact: "com.example1:foo:2.0"
+        ]))
+        assertNotEquals(libraryInfo, LibraryInfo.fromYaml([
+                artifact: "com.example1:foo:+"
+        ]))
+        assertNotEquals(libraryInfo, LibraryInfo.fromYaml([
+                artifact: "com.example1:bar:1.0"
+        ]))
+        assertNotEquals(libraryInfo, LibraryInfo.fromYaml([
+                artifact: "com.example2:foo:1.0"
+        ]))
+    }
+
+    @Test
+    public void testCompareTo() throws Exception {
+        LibraryInfo libraryInfo = LibraryInfo.fromYaml([
+                artifact: "com.example1:foo:1.0"
+        ])
+
+        assertEquals(0,
+                libraryInfo.compareTo(LibraryInfo.fromYaml([
+                        artifact: "com.example1:foo:1.0"
+                ]))
+        )
+        assertTrue(
+                libraryInfo.compareTo(LibraryInfo.fromYaml([
+                        artifact: "com.example1:foo:2.0"
+                ])) < 0
+        )
+        assertTrue(
+                libraryInfo.compareTo(LibraryInfo.fromYaml([
+                        artifact: "com.example1:foo:+"
+                ])) > 0
+        )
+        assertTrue(
+                libraryInfo.compareTo(LibraryInfo.fromYaml([
+                        artifact: "com.example1:bar:1.0"
+                ])) > 0
+        )
+        assertTrue(
+                libraryInfo.compareTo(LibraryInfo.fromYaml([
+                        artifact: "com.example2:foo:1.0"
+                ])) < 0
+        )
     }
 
 }

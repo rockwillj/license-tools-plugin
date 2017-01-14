@@ -2,7 +2,7 @@ package com.cookpad.android.licensetools
 
 public class LibraryInfo implements Comparable<LibraryInfo> {
 
-    static int index = 0
+    static int count = 0
 
     String libraryName = ""
 
@@ -18,11 +18,13 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
 
     String license = ""
 
+    String licenseUrl = ""
+
     String url = "";
 
     boolean skip = false
 
-    String id = ""
+    String index = ""
 
     // from libraries.yml
     public static LibraryInfo fromYaml(Object lib) {
@@ -41,10 +43,11 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
             libraryInfo.copyrightHolder = lib.author
         }
         libraryInfo.license = lib.license ?: ""
+        libraryInfo.licenseUrl = lib.licenseUrl ?: ""
         libraryInfo.notice = lib.notice as String
         libraryInfo.skip = lib.skip as boolean
         libraryInfo.url = lib.url ?: ""
-        libraryInfo.id = "library" + ++index
+        libraryInfo.index = "library" + ++count
         return libraryInfo
     }
 
@@ -66,6 +69,10 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
 
     public String getEscapedName() {
         return name ? (name.contains(": ") ? "\"${name}\"" : name) : null
+    }
+
+    private String getId() {
+        return artifactId ?: filename
     }
 
     // called from HTML templates
@@ -209,7 +216,7 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
 
         LibraryInfo that = (LibraryInfo) o
 
-        if (name != that.name) {
+        if (id != that.id) {
             return false
         }
 
@@ -217,11 +224,11 @@ public class LibraryInfo implements Comparable<LibraryInfo> {
     }
 
     int hashCode() {
-        return name.hashCode()
+        return id.hashCode()
     }
 
     @Override
     int compareTo(LibraryInfo o) {
-        return name.compareToIgnoreCase(o.name)
+        return id.compareToIgnoreCase(o.id)
     }
 }
