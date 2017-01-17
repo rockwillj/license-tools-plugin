@@ -4,6 +4,8 @@
 
 **YAALTP は [Android License Tools Plugin](https://github.com/cookpad/license-tools-plugin) のフォークです。**
 
+![demo](art/yaaltp_demo.gif)
+
 ライブラリーのライセンスをチェックしてライセンスページを生成する Gradle プラグインです。
 
 * `./gradlew checkLicenses` - 依存ライブラリーのライセンスをチェックして **`licenses.yml` を生成する**

@@ -6,6 +6,8 @@ English | [日本語](README.ja.md)
 
 Gradle Plugin to check library licenses and generate license pages.
 
+![demo](art/yaaltp_demo.gif)
+
 * `./gradlew checkLicenses` to check licenses in dependencies, **and generate `licenses.yml`**
 * `./gradlew generateLicensePage` to generate a license page `licenses.html`
 * `./gradlew generateLicenseJson` to generate a license json file `licenses.json`
