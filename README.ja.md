@@ -133,6 +133,7 @@ artifact の名前やバージョンではワイルドカードが利用でき�
 ## 参照
 
 - [オープンソースライセンスの管理を楽にする -Android アプリ編 - クックパッド開発者ブログ](http://techlife.cookpad.com/entry/2016/04/28/183000)
+- [オープンソースライセンスの管理をもっと楽にするために Cookpad のプラグインをフォークしてみた - Qiita](http://qiita.com/rockwillj/items/dae2364be281c0ea2ef1)
 
 ## 開発者向け
 
